@@ -1,43 +1,67 @@
-# LED-ULTRASONC-BUZZAR.
-const int trigPin = 9;
-const int echoPin = 10;
-const int ledPin = 3;
-const int buzzerPin = 4;
+# LED-ULTRASONC-BUZZER 🚨✨
 
-long duration;
-int distance;
+مشروع أردوينو بسيط يستخدم حساس **Ultrasonic HC-SR04** لقياس المسافة وتشغيل **LED** و **Buzzer** عند الاقتراب من الحساس لمسافة أقل من 10 سم.
 
-void setup() {
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
-  pinMode(ledPin, OUTPUT);
-  pinMode(buzzerPin, OUTPUT);
-  Serial.begin(9600);
-}
+---
 
-void loop() {
-  // إرسال نبضة
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
+## ⚡ الفكرة
 
-  // استقبال النبضة
-  duration = pulseIn(echoPin, HIGH);
-  distance = duration * 0.034 / 2;
+* قياس المسافة باستخدام الموجات فوق الصوتية.
+* إذا كان الجسم أقرب من **10 سم** → يضيء الـ LED ويصدر الـ Buzzer صوتًا.
+* إذا كان أبعد → يبقى LED و Buzzer مطفأين.
 
-  Serial.print("Distance: ");
-  Serial.print(distance);
-  Serial.println(" cm");
+---
 
-  if (distance < 10) { // أقل من 10 سم
-    digitalWrite(ledPin, HIGH);
-    digitalWrite(buzzerPin, HIGH);
-  } else {
-    digitalWrite(ledPin, LOW);
-    digitalWrite(buzzerPin, LOW);
-  }
+## 🛠️ المكونات المطلوبة
 
-  delay(200);
-}
+* لوحة **Arduino UNO** (أو أي متحكم متوافق).
+* حساس **Ultrasonic HC-SR04**.
+* **LED** + مقاومة 220Ω.
+* **Buzzer**.
+* أسلاك توصيل.
+* لوحة تجارب (Breadboard).
+
+---
+
+## 🔌 التوصيلات
+
+| المكون        | Arduino Pin |
+| ------------- | ----------- |
+| Trig (الحساس) | 9           |
+| Echo (الحساس) | 10          |
+| LED           | 3           |
+| Buzzer        | 4           |
+| VCC الحساس    | 5V          |
+| GND الحساس    | GND         |
+
+---
+
+## 💻 الكود
+
+الكود كامل موجود في الملف `main.ino`:
+يقوم الكود بما يلي:
+
+1. إرسال نبضة من الحساس.
+2. استقبال الموجة المنعكسة وحساب المسافة.
+3. طباعة المسافة على الـ Serial Monitor.
+4. تشغيل LED + Buzzer إذا كانت المسافة أقل من 10 سم.
+
+---
+
+## 📊 مثال ناتج على Serial Monitor
+
+```
+Distance: 25 cm
+Distance: 8 cm
+Distance: 7 cm
+```
+
+---
+
+## 🚀 للتجربة
+
+1. انسخ الكود إلى **Arduino IDE**.
+2. وصّل المكونات حسب الجدول.
+3. حمّل الكود إلى اللوحة.
+4. افتح **Serial Monitor** بسرعة 9600.
+5. قرّب يدك من الحساس وشاهد كيف يضيء LED ويعمل الـ Buzzer.
