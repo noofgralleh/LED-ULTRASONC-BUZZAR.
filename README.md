@@ -1,43 +1,34 @@
-# LED-ULTRASONC-BUZZAR.
-const int trigPin = 9;
-const int echoPin = 10;
-const int ledPin = 3;
-const int buzzerPin = 4;
+LED-ULTRASONC-BUZZER 🚨✨
 
-long duration;
-int distance;
+مشروع أردوينو بسيط يستخدم حساس Ultrasonic HC-SR04 لقياس المسافة وتشغيل LED و Buzzer عند الاقتراب من الحساس لمسافة أقل من 10 سم.
 
-void setup() {
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
-  pinMode(ledPin, OUTPUT);
-  pinMode(buzzerPin, OUTPUT);
-  Serial.begin(9600);
-}
+⚡ الفكرة
 
-void loop() {
-  // إرسال نبضة
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
+قياس المسافة باستخدام الموجات فوق الصوتية.
 
-  // استقبال النبضة
-  duration = pulseIn(echoPin, HIGH);
-  distance = duration * 0.034 / 2;
+إذا كان الجسم أقرب من 10 سم → يضيء الـ LED ويصدر الـ Buzzer صوتًا.
 
-  Serial.print("Distance: ");
-  Serial.print(distance);
-  Serial.println(" cm");
+إذا كان أبعد → يبقى LED و Buzzer مطفأين.
 
-  if (distance < 10) { // أقل من 10 سم
-    digitalWrite(ledPin, HIGH);
-    digitalWrite(buzzerPin, HIGH);
-  } else {
-    digitalWrite(ledPin, LOW);
-    digitalWrite(buzzerPin, LOW);
-  }
+🛠️ المكونات المطلوبة
 
-  delay(200);
-}
+لوحة Arduino UNO (أو أي متحكم متوافق).
+
+حساس Ultrasonic HC-SR04.
+
+LED + مقاومة 220Ω.
+
+Buzzer.
+
+أسلاك توصيل.
+
+لوحة تجارب (Breadboard).
+
+🔌 التوصيلات
+المكون	Arduino Pin
+Trig (الحساس)	9
+Echo (الحساس)	10
+LED	3
+Buzzer	4
+VCC الحساس	5V
+GND الحساس	GND
